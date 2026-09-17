@@ -1,0 +1,8 @@
+<!doctype html>
+<pre id="out">running</pre>
+<script>
+  const w = new Worker(new URL("./w.js", location.href), { type: "module" });
+  w.onmessage = (e) => (document.getElementById("out").textContent = JSON.stringify(e.data));
+  w.onerror = (e) => (document.getElementById("out").textContent = "error: " + e.message);
+  setTimeout(() => w.postMessage("go"), 100);
+</script>
